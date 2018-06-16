@@ -3,9 +3,8 @@ const db = require("../models");
 module.exports.getHome = function(req, res) {
 
 
-    db.Article.find().then((articles) => {
+    db.Article.find({ isSaved: false }).then((articles) => {
         console.log(articles);
-
         res.render("index", { articles });
     }).catch((err) => {
 
@@ -14,5 +13,14 @@ module.exports.getHome = function(req, res) {
     })
 
 
+
+}
+
+module.exports.getSavedArticles = function(req, res) {
+
+    db.Article.find({ isSaved: true }).then((articles) => {
+        res.render("saved-articles", { articles });
+
+    });
 
 }

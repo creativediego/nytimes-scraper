@@ -23,8 +23,8 @@ const ArticleSchema = new Schema({
         ref: "Note"
     },
 
-    saved: {
-        boolean: Boolean,
+    isSaved: {
+        type: Boolean,
         default: false
     },
 
