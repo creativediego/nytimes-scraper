@@ -1,5 +1,12 @@
+const db = require("../models");
+
 module.exports.getHome = function(req, res) {
 
-    res.render("index");
+    db.Article.find({}).then((articles) => {
+
+        res.render("index", { articles });
+    })
+
+
 
 }

@@ -15,10 +15,22 @@ const ArticleSchema = new Schema({
         required: true
     },
 
+    // `note` is an object that stores a Note id
+    // The ref property links the ObjectId to the Note model
+    // This allows us to populate the Article with an associated Note
     note: {
-
         type: Schema.Types.ObjectId,
         ref: "Note"
+    },
+
+    saved: {
+        boolean: Boolean,
+        default: false
+    },
+
+    dateAdded: {
+        type: Date,
+        default: Date.now
     }
 
 });

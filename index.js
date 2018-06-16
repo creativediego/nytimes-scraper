@@ -3,13 +3,15 @@ require('dotenv').config()
 const express = require("express");
 const exphbs = require('express-handlebars');
 const bodyParser = require("body-parser");
-const cheerio = require("cheerio");
-const axios = require("axios");
+const logger = require("morgan");
+//const cheerio = require("cheerio");
+//const axios = require("axios");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
 //const db = require("./models");
 
-mongoose.connect(process.env.MONGO_URI)
+mongoURI = "mongodb://localhost/scrapedArticles" || MONGO_URI
+mongoose.connect(mongoURI)
 
 const app = express();
 
@@ -19,11 +21,13 @@ app.set('view engine', 'handlebars');
 //Middleware configuration
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+// Use morgan logger for logging requests
+app.use(logger("dev"));
 
 
 //Routes
-const apiRoutes = require("./routes/html-routes")(app);
-
+const htmlRoutes = require("./routes/html-routes")(app);
+const apiRoutes = require("./routes/api-routes")(app);
 
 PORT = process.env.PORT || 3000;
 

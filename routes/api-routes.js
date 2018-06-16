@@ -1,13 +1,24 @@
-//Get all articles 
+const db = require("../models");
+const apiController = require("../controllers/api-controller");
+const axios = require("axios");
 
-//Scrape articles
+module.exports = function(app) {
 
-//If article doesn't exist in db, store it
+    app.get("/scrape", apiController.scrape);
 
-//Post article to the saved collection
+    //Get all articles 
 
-//Post article notes
+    //Scrape articles
 
-//Get article notes
 
-//Delete article notes
+    //If article doesn't exist in db, store it
+
+    //Post article to the saved collection
+
+    //Post article notes
+
+    //Get article notes
+
+    //Delete article notes
+
+}
