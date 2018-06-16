@@ -1,20 +1,15 @@
+
 <div class="row">
-  <div class="col-sm-6">
+    {{#each articles}}
+  <div class="col-sm-6 mb-3">
     <div class="card">
+        <div class="card-header lead" style="min-height: 90px">{{title}}</div>
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+
+        <a href="{{link}}" class="btn btn-primary">Read article</a>
+        <a href="#" class="btn btn-primary">Save article</a>
       </div>
     </div>
   </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
+  {{/each}}
 </div>
