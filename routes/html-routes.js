@@ -1,10 +1,10 @@
 const htmlController = require("../controllers/html-controller");
-
+const db = require("../models");
 
 module.exports = function(app) {
     //Show all unsaved scraped articles on home pages
-    app.get("/", htmlController.getHome);
+    app.get("/", htmlController.getHomePage);
 
-    //Show all saved scraped articles on the Saved Articles page
-    app.get("/", htmlController.getHome);
+    app.get("/articles/pages/:page", htmlController.fetchMoreArticles);
+
 }

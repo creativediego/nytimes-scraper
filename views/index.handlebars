@@ -1,9 +1,10 @@
 
-<div class="row">
-    {{#each articles}}
+
+<div class="row justify-content-center">
+    {{#each result.docs}}
   <div class="col-sm-6 mb-3">
     <div class="card" id="{{id}}">
-        <div class="card-header lead" style="min-height: 90px">{{title}}</div>
+        <div class="card-header lead">{{title}}</div>
       <div class="card-body">
 
         <a href="{{link}}" class="btn btn-primary">Read article</a>
@@ -14,3 +15,16 @@
   </div>
   {{/each}}
 </div>
+
+{{#if result.docs}}
+<div class="text-center">
+<button class="btn btn-info fetch-articles">LOAD MORE ARTICLES</button>
+</div>
+{{/if}}
+    
+
+         
+    <!--<span class="page-item"></span><a  href="/articles/pages/{{decrementPage result}}">Previous</a></span> <span> Page {{result.page}} of {{result.limit}}</span> <span class="page-item"><a  href="/articles/pages/{{incrementPage result}}">Next</a></span>-->
+ 
+
+

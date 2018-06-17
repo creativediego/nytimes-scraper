@@ -3,6 +3,22 @@ const apiController = require("../controllers/api-controller");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+module.exports.getPagination = function(req, res) {
+    console.log("PAGINATION STARTED")
+
+
+    db.Article.paginate({}, { page: req.params.number, limit: 10 }, function(err, result) {
+        console.log(result.pages);
+        res.json(result)
+            // result.docs
+            // result.total
+            // result.limit - 10
+            // result.page - 3
+            // result.pages
+    });
+
+}
+
 module.exports.scrape = (req, res) => {
 
     //Use the axios module to make a request to the URL

@@ -1,16 +1,31 @@
 const db = require("../models");
 
-module.exports.getHome = function(req, res) {
+module.exports.getHomePage = function(req, res) {
 
+    db.Article.paginate({}, { limit: 10 }, function(err, result) {
+        console.log("PAGES: ", result)
+        res.render("index", {
+            result
+        });
+        // result.docs
+        // result.total
+        // result.limit - 10
+        // result.page - 3
+        // result.pages
+    });
 
-    db.Article.find({ isSaved: false }).then((articles) => {
-        console.log(articles);
-        res.render("index", { articles });
-    }).catch((err) => {
+}
 
-        res.json(err);
+module.exports.fetchMoreArticles = function(req, res) {
 
-    })
+    db.Article.paginate({}, { page: req.params.page, limit: 10 }, function(err, result) {
+        res.json(result);
+        // result.docs
+        // result.total
+        // result.limit - 10
+        // result.page - 3
+        // result.pages
+    });
 
 
 

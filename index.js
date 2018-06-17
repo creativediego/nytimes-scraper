@@ -4,11 +4,9 @@ const express = require("express");
 const exphbs = require('express-handlebars');
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-//const cheerio = require("cheerio");
-//const axios = require("axios");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
-//const db = require("./models");
+
 
 mongoURI = "mongodb://localhost/scrapedArticles" || MONGO_URI
 mongoose.connect(mongoURI)

@@ -24,7 +24,9 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
+    "handlebars-paginate": "^0.1.0",
     "mongoose": "^5.1.5",
+    "mongoose-paginate": "^5.0.3",
     "morgan": "^1.9.0",
     "request": "^2.87.0"
   }

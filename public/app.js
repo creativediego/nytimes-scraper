@@ -1,8 +1,63 @@
 $(document).ready(function() {
 
+    //Keep track of the current article page count for Async call to load more articles
+    let currentArticlePage = 2;
+
+    //When the user clicks to load more articles
+    $(".fetch-articles").on("click", fetchArticles);
+
+    //Fetches more articles from the database, based on the current page count
+    function fetchArticles() {
+
+        //Show loader
+        $(".loader").toggleClass("hide");
+
+        //Get articles for the current page number
+        $.get(`/articles/pages/${currentArticlePage}`).then(function(data) {
+            console.log(data)
+
+            //Hide loader
+            $(".loader").toggleClass("hide");
+
+            if (data.docs.length > 0) {
+
+                //Loop through each article
+                data.docs.forEach(function(article) {
+
+                    //Build a card to display the article
+                    let articleCard =
+                        ` <div class="col-sm-6 mb-3">
+                        <div class="card" id="${article._id}">
+                            <div class="card-header lead">${article.title}</div>
+                          <div class="card-body">
+                            <a href="${article.link}" class="btn btn-primary">Read article</a>
+                            <a href="#" class="btn btn-primary">Save article</a>
+                            <a href="#" class="btn btn-primary notes">Article notes</a>
+                          </div>
+                        </div>
+                      </div>`
+
+                    //Append the article to the DOM
+                    $("article .row").append(articleCard);
+
+                });
+
+                //Increment page count for future API calls to load more articles;
+                currentArticlePage++;
+
+                //If there are no more articles to display
+            } else {
+
+                $("#no-more-articles").remove()
+                $("article .row").append(`<p id="no-more-articles" class="alert alert-info"><strong>Holy guacamole!</strong> No articles left to display.</p>`)
+            }
+
+        });
+
+    }
+
     //Whenever a user clicks the notes button corresponding to an article
     $("body").on("click", ".notes", function(e) {
-
 
         e.preventDefault();
 

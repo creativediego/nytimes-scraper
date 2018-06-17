@@ -1,10 +1,10 @@
-const db = require("../models");
-const apiController = require("../controllers/api-controller");
-const axios = require("axios");
+const apiController = require("../controllers/api-controller")
 
 module.exports = function(app) {
 
     app.get("/scrape", apiController.scrape);
+
+    app.get("/articles/pages/:number", apiController.getPagination)
 
     //Get all articles 
 
