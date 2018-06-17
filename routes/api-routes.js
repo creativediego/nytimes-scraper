@@ -4,7 +4,7 @@ module.exports = function(app) {
 
     app.get("/scrape", apiController.scrape);
 
-    app.get("/articles/pages/:number", apiController.getPagination)
+    app.get("/articles/pages/:number", apiController.fetchMoreArticles)
 
     //Get all articles 
 

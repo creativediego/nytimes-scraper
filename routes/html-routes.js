@@ -5,6 +5,4 @@ module.exports = function(app) {
     //Show all unsaved scraped articles on home pages
     app.get("/", htmlController.getHomePage);
 
-    app.get("/articles/pages/:page", htmlController.fetchMoreArticles);
-
 }
