@@ -4,6 +4,9 @@ $(document).ready(function() {
     let currentArticlePage = 2;
 
     function fetchArticles() {
+        //Show loader
+        $(".loader").toggleClass("hide");
+
         //Get articles for the current page number
         $.get(`/articles/pages/${currentArticlePage}`).then(function(data) {
             console.log(data)
@@ -50,14 +53,6 @@ $(document).ready(function() {
     //When the user clicks to load more articles
     $(".fetch-articles").on("click", fetchArticles);
 
-    //Fetches more articles from the database, based on the current page count
-    function fetchArticles() {
-
-        //Show loader
-        $(".loader").toggleClass("hide");
-
-    }
-
 
     function buildNotes(notes) {
 
@@ -86,6 +81,9 @@ $(document).ready(function() {
     }
 
     function fetchNotes(articleId) {
+        //Empty modal notes
+        $("#article-notes").empty();
+
         //Make a get request for the article notes
         $.get("/articles/" + articleId + "/notes").then(function(data) {
             console.log(data)
