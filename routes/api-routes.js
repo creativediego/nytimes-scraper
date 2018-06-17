@@ -4,7 +4,11 @@ module.exports = function(app) {
 
     app.get("/scrape", apiController.scrape);
 
-    app.get("/articles/pages/:number", apiController.fetchMoreArticles)
+    app.get("/articles/pages/:number", apiController.fetchMoreArticles);
+
+    app.get("/articles/:id/notes", apiController.getArticleNotes);
+
+    app.post("/articles/:id", apiController.postNewNote)
 
     //Get all articles 
 

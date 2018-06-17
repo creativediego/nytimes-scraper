@@ -10,6 +10,31 @@ module.exports.fetchMoreArticles = function(req, res) {
 
     });
 
+};
+
+module.exports.getArticleNotes = function(req, res) {
+
+
+    db.Article.findOne({ _id: req.params.id }).
+    populate("notes").
+    exec(function(err, note) {
+
+        if (err) throw err
+
+        res.json(note)
+            // prints "The author is Ian Fleming"
+    });
+
+};
+
+module.exports.postNewNote = function(req, res) {
+
+
+    db.Note.create(req.body).
+    then(dbNote => db.Article.findByIdAndUpdate({ _id: req.params.id }, { $push: { notes: dbNote._id } }, { new: true })).
+    then(dbArticle => res.json(dbArticle))
+
+
 }
 
 module.exports.scrape = (req, res) => {
@@ -55,4 +80,4 @@ module.exports.scrape = (req, res) => {
     });
 
 
-}
+};

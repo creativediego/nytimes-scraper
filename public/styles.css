@@ -2,6 +2,11 @@
     font-size: 1.2rem !important;
 }
 
+.edit-note {
+    right: 1.5rem !important;
+    font-size: 1.2rem !important;
+}
+
 #article-pagination {
     display: flex;
 }

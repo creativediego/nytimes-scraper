@@ -9,6 +9,7 @@ const flash = require("connect-flash");
 
 
 mongoURI = "mongodb://localhost/scrapedArticles" || MONGO_URI
+mongoose.set("debug", true);
 mongoose.connect(mongoURI)
 
 const app = express();
