@@ -1,33 +1,34 @@
 {
-  "name": "nytimes-scraper",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/creativediego/nytimes-scraper.git"
-  },
-  "author": "Diego",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/creativediego/nytimes-scraper/issues"
-  },
-  "homepage": "https://github.com/creativediego/nytimes-scraper#readme",
-  "dependencies": {
-    "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
-    "cheerio": "^1.0.0-rc.2",
-    "connect-flash": "^0.1.1",
-    "dotenv": "^6.0.0",
-    "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
-    "handlebars-paginate": "^0.1.0",
-    "mongoose": "^5.1.5",
-    "mongoose-paginate": "^5.0.3",
-    "morgan": "^1.9.0",
-    "request": "^2.87.0"
-  }
+    "name": "nytimes-scraper",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/creativediego/nytimes-scraper.git"
+    },
+    "author": "Diego",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/creativediego/nytimes-scraper/issues"
+    },
+    "homepage": "https://github.com/creativediego/nytimes-scraper#readme",
+    "dependencies": {
+        "axios": "^0.18.0",
+        "body-parser": "^1.18.3",
+        "cheerio": "^1.0.0-rc.2",
+        "connect-flash": "^0.1.1",
+        "dotenv": "^6.0.0",
+        "express": "^4.16.3",
+        "express-handlebars": "^3.0.0",
+        "handlebars-paginate": "^0.1.0",
+        "mongoose": "^5.1.5",
+        "mongoose-paginate": "^5.0.3",
+        "morgan": "^1.9.0",
+        "request": "^2.87.0"
+    }
 }

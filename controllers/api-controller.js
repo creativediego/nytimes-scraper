@@ -27,6 +27,22 @@ module.exports.getArticleNotes = function(req, res) {
 
 };
 
+module.exports.saveArticle = function(req, res) {
+    console.log("SAVING...")
+
+    db.Article.findByIdAndUpdate({ _id: req.params.id }, { $set: { isSaved: true } }, { new: true }).
+    then(savedArticle => res.json({ msg: `Saved article "${savedArticle.title}" and moved it to Saved Articles Page.` })).catch(err => console.log(err));
+
+}
+
+module.exports.unsaveArticle = function(req, res) {
+
+    console.log("UNSAVING...")
+    db.Article.findByIdAndUpdate({ _id: req.params.id }, { $set: { isSaved: false } }, { new: true }).
+    then(savedArticle => res.json({ msg: `Removed article "${savedArticle.title}."` })).catch(err => console.log(err));
+
+}
+
 module.exports.postNewNote = function(req, res) {
 
 
@@ -88,9 +104,9 @@ module.exports.scrape = (req, res) => {
             });
 
         });
-        // console.log(result);
-        //If scraping and db storage successful, send message to the client
-        res.send("Scraping Successful!")
+
+        //If scraping and db storage successful, return articles to the client
+        res.json(stories);
 
     });
 

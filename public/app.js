@@ -3,6 +3,22 @@ $(document).ready(function() {
     //Keep track of the current article page count for Async call to load more articles
     let currentArticlePage = 2;
 
+    //User clicks to scrape stories
+    $("#scrape-stories").on("click", function(e) {
+
+        e.preventDefault();
+
+        //Status message
+        $("#status-message").append(`<p class="alert alert-success">Fetching latest stories...</p>`);
+
+        $.get("/scrape/").then(function(stories) {
+
+            window.location.href = "/"
+
+        });
+
+    })
+
     function fetchArticles() {
         //Show loader
         $(".loader").toggleClass("hide");
@@ -26,7 +42,7 @@ $(document).ready(function() {
                             <div class="card-header lead">${article.title}</div>
                           <div class="card-body">
                             <a href="${article.link}" class="btn btn-primary">Read article</a>
-                            <a href="#" class="btn btn-primary">Save article</a>
+                            <a href="#" class="btn btn-primary save-article">Save article <span class="save-status"><i class="far fa-heart"></i></span></a> 
                             <a href="#" class="btn btn-primary notes">Article notes</a>
                           </div>
                         </div>
@@ -50,7 +66,7 @@ $(document).ready(function() {
         });
     }
 
-    //When the user clicks to load more articles
+    //User clicks to load more articles
     $(".fetch-articles").on("click", fetchArticles);
 
     //Helper function that adds note data from API call to the notes modal
@@ -118,6 +134,35 @@ $(document).ready(function() {
         });
 
     }
+
+    //User clicks to save/unsave article
+    $(document).on("click", ".update-save-status", function(e) {
+
+        const article = $(this).closest(".card");
+        const articleTitle = $(article).find(".card-header").clone().text();
+        const articleId = $(article).attr("id");
+
+        //Depending on the saved status of the article, make the appropriate post request, and show the appropriate result message
+        let status;
+        $(this).attr("value") === "true" ? status = "unsave" : status = "save";
+
+        //Post new article status
+        $.post(`/articles/${status}/${articleId}`).then(function(savedArticle) {
+
+            //Clear previous status message
+            $("#status-message").empty();
+
+            //Update state by removing article
+            $(article).parent().remove();
+
+            //Add status message
+            $("#status-message").append(`<p class="alert alert-success">${savedArticle.msg}</p>`);
+
+        });
+
+    });
+
+
 
     function postNote(articleId, noteBody) {
         $.post("/articles/" + articleId, {
@@ -187,17 +232,20 @@ $(document).ready(function() {
         const noteId = $(this).closest(".note").attr("id");
         const noteBody = $("#update-note-area").val().trim();
 
-        //Post note
-        $.post("/articles/notes/update/" + noteId, { updatedNote: noteBody }).then(function(updatedNote) {
+        //If note body contains data
+        if (noteBody) {
+            //Post note
+            $.post("/articles/notes/update/" + noteId, { updatedNote: noteBody }).then(function(updatedNote) {
 
-            console.log(updatedNote);
+                console.log(updatedNote);
 
-            //Remove update note form
-            $("#update-note-form").remove();
+                //Remove update note form
+                $("#update-note-form").remove();
 
-            //Update the note in the UI
-            $("#" + noteId).find(".note-body").text(updatedNote.body);
-        });
+                //Update the note in the UI
+                $("#" + noteId).find(".note-body").text(updatedNote.body);
+            });
+        }
     });
 
     $(document).on("click", ".delete-note", function() {

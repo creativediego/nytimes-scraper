@@ -1,5 +1,6 @@
 
 <div class="row justify-content-center">
+    <div id="status-message" class=" text-center col-12"></div>
     {{#each result.docs}}
   <div class="col-sm-6 mb-3">
     <div class="card" id="{{id}}">
@@ -7,7 +8,7 @@
       <div class="card-body">
 
         <a href="{{link}}" class="btn btn-primary">Read article</a>
-        <a href="#" class="btn btn-primary">Save article</a>
+        <a href="#" class="btn btn-primary update-save-status" value="{{isSaved}}">Save article <span class="save-status save-article"><i class="far fa-heart"></i></span></a>
         <a href="#" class="btn btn-primary view-notes">Article notes</a>
       </div>
     </div>

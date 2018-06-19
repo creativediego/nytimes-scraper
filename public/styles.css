@@ -5,6 +5,7 @@
 .edit-note {
     right: 1.5rem !important;
     font-size: 1.2rem !important;
+    margin-right: 10px !important;
 }
 
 #article-pagination {
@@ -25,6 +26,10 @@
     /* Safari */
     animation: spin 2s linear infinite;
     margin: auto;
+}
+
+.saved {
+    color: red;
 }
 
 .hide {
