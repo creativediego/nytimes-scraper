@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const flash = require("connect-flash");
 
 
-mongoURI = "mongodb://localhost/scrapedArticles" || MONGO_URI
+mongoURI = MONGO_URI
 mongoose.set("debug", true);
 mongoose.connect(mongoURI)
 
