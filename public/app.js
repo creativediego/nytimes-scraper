@@ -41,7 +41,7 @@
                         <div class="card" id="${article._id}">
                             <div class="card-header lead">${article.title}</div>
                           <div class="card-body">
-                            <a href="${article.link}" class="btn btn-primary">Read article</a>
+                            <a href="${article.link}" target="_blank" class="btn btn-primary">Read article</a>
                             <a href="#" class="btn btn-primary save-article">Save article <span class="save-status"><i class="far fa-heart"></i></span></a> 
                             <a href="#" class="btn btn-primary notes">Article notes</a>
                           </div>
