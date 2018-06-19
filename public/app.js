@@ -53,19 +53,17 @@ $(document).ready(function() {
     //When the user clicks to load more articles
     $(".fetch-articles").on("click", fetchArticles);
 
-
+    //Helper function that adds note data from API call to the notes modal
     function buildNotes(notes) {
-
-
-        //clear old notes
-        $(".note").remove();
 
         //Loop through the notes
         notes.forEach(function(note) {
 
 
-            const noteCard = `<div class="note alert alert-primary alert-dismissible" role="alert">
+            const noteCard = `<div id="${note._id}" class="note alert alert-primary alert-dismissible" role="alert">
+            <div class="note-body">
                 ${note.body}
+                </div>
                 <button type="button" class="close edit-note">
                   <span><i class="fas fa-edit"></i></span>
                 </button>
@@ -80,9 +78,13 @@ $(document).ready(function() {
         });
     }
 
+    //Takes the id of an article and displays a modal with the article notes
     function fetchNotes(articleId) {
-        //Empty modal notes
+        //Empty modal notes and text area from previous state
         $("#article-notes").empty();
+
+        //Clear textarea from previous state
+        $("#note-body").val("");
 
         //Make a get request for the article notes
         $.get("/articles/" + articleId + "/notes").then(function(data) {
@@ -155,5 +157,62 @@ $(document).ready(function() {
         }
 
     });
+
+    //User clicks to update note
+    $(document).on("click", ".edit-note", function() {
+        //Clear the text inside the note
+        $(this).closest(".note").find(".note-body").text("");
+
+        //Get note id
+        const noteId = $(this).closest(".note").attr("id");
+
+        //Display a textarea inside the note
+        const editNoteArea =
+            $(`<form id="update-note-form">
+                <div class="form-group">
+                    <label>Edit note</label>
+                    <textarea name="updateNoteBody" class="form-control" id="update-note-area" rows="3"></textarea>
+                </div>
+                <button type="button" class="btn btn-primary" id="submit-note-update">Update note</button>
+            </form>`);
+
+        //Append note edit area to note
+        $("#" + noteId).append(editNoteArea);
+
+    });
+
+    //User clicks to save note update
+    $(document).on("click", "#submit-note-update", function() {
+
+        const noteId = $(this).closest(".note").attr("id");
+        const noteBody = $("#update-note-area").val().trim();
+
+        //Post note
+        $.post("/articles/notes/update/" + noteId, { updatedNote: noteBody }).then(function(updatedNote) {
+
+            console.log(updatedNote);
+
+            //Remove update note form
+            $("#update-note-form").remove();
+
+            //Update the note in the UI
+            $("#" + noteId).find(".note-body").text(updatedNote.body);
+        });
+    });
+
+    $(document).on("click", ".delete-note", function() {
+
+        const note = $(this).closest(".note");
+        const noteId = $(this).closest(".note").attr("id");
+
+        $.post("/articles/notes/delete/" + noteId).then(function(message) {
+
+            //remove note from UI
+            $(note).remove();
+            console.log(message);
+
+        });
+
+    })
 
 });

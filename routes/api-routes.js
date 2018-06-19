@@ -8,21 +8,12 @@ module.exports = function(app) {
 
     app.get("/articles/:id/notes", apiController.getArticleNotes);
 
-    app.post("/articles/:id", apiController.postNewNote)
+    app.post("/articles/:id", apiController.postNewNote);
 
-    //Get all articles 
+    app.post("/articles/notes/update/:id", apiController.updateNote);
 
-    //Scrape articles
+    app.post("/articles/notes/delete/:id", apiController.deleteNote);
 
 
-    //If article doesn't exist in db, store it
-
-    //Post article to the saved collection
-
-    //Post article notes
-
-    //Get article notes
-
-    //Delete article notes
 
 }

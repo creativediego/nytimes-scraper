@@ -22,7 +22,7 @@ module.exports.getArticleNotes = function(req, res) {
         if (err) throw err
 
         res.json(note)
-            // prints "The author is Ian Fleming"
+
     });
 
 };
@@ -32,8 +32,23 @@ module.exports.postNewNote = function(req, res) {
 
     db.Note.create(req.body).
     then(dbNote => db.Article.findByIdAndUpdate({ _id: req.params.id }, { $push: { notes: dbNote._id } }, { new: true })).
-    then(dbArticle => res.json(dbArticle))
+    then(dbArticle => res.json(dbArticle)).catch(err => console.log(err));
 
+
+}
+
+module.exports.updateNote = function(req, res) {
+
+    db.Note.findByIdAndUpdate({ _id: req.params.id }, { $set: { body: req.body.updatedNote } }, { new: true }).
+    then(data => res.json(data)).catch(err => console.log(err));
+
+
+}
+
+module.exports.deleteNote = function(req, res) {
+
+    //console.log("deleting...")
+    db.Note.deleteOne({ _id: req.params.id }).then(res.json({ msg: "note deleted successfully" }))
 
 }
 
