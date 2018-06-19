@@ -78,35 +78,47 @@ module.exports.scrape = (req, res) => {
 
 
         //Loop over each article heading
-        $(".story-heading").each(function() {
+        $("article .story-heading").each(function() {
 
             //Create a new object for the db with the title of the article and link
             const result = {
 
                 title: $(this).text().trim(),
-                link: $(this).children("a").attr("href")
+                link: $(this).find("a").attr("href")
 
             }
 
-            console.log(result);
-
-            //Create a new db Article using the result object
-            db.Article.create(result).then((dbArticle) => {
-
-                console.log(dbArticle);
-
-            }).catch((err) => {
-
-                //If error occurs, send it to the client
-                return res.json(err);
+            //If article contains both title and link from scrape
+            if (result.title && result.link) {
 
 
-            });
+                db.Article.findOne({ title: result.title, link: result.link }).
+                then(articles => {
 
+                    //If article doesn't exist
+                    if (!articles) {
+
+
+                        //Create one
+                        db.Article.create(result).then(newArticle => {
+
+                            console.log(newArticle);
+
+                        }).catch((err) => {
+                            //If error occurs, send it to the client
+                            console.log(err);
+                        });
+
+                    }
+
+
+                }).catch(err => console.log(err));
+
+            }
         });
 
-        //If scraping and db storage successful, return articles to the client
-        res.json(stories);
+        //If scraping and db storage successful, display article
+        res.redirect("/")
 
     });
 
