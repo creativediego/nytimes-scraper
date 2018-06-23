@@ -8,6 +8,9 @@
 
          e.preventDefault();
 
+         //Clear previous status message
+         $("#status-message").empty();
+
          //Status message
          $("#status-message").append(`<p class="alert alert-success">Fetching latest stories...</p>`);
 
